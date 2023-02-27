@@ -18,9 +18,18 @@ class Symbol extends StatelessWidget {
       margin: const EdgeInsets.all(5),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(22),
-        color: const Color.fromRGBO(0x7F, 0x7F, 0x7F, 0.1),
+        color: const Color.fromRGBO(0x7F, 0x7F, 0x7F, 0.05),
       ),
+      alignment: Alignment.center,
       // child: Image.asset(),
+      child: const Text(
+        'o',
+        style: TextStyle(
+          color: Color.fromRGBO(0x7F, 0x7F, 0x7F, 0.2),
+          fontWeight: FontWeight.w800,
+          fontSize: 30,
+        ),
+      ),
     );
   }
 }
