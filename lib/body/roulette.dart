@@ -28,11 +28,11 @@ class Roulette extends StatelessWidget {
       child: Row(
         children: [
           // 5개의 Column 필요
-          line1,
-          line2,
-          line3,
-          line4,
-          line5,
+          Expanded(child: line1),
+          Expanded(child: line2),
+          Expanded(child: line3),
+          Expanded(child: line4),
+          Expanded(child: line5),
         ],
       ),
     );
