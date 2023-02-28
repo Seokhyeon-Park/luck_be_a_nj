@@ -4,10 +4,16 @@ import './center.dart';
 import './menu.dart';
 
 class Bottom extends StatelessWidget {
-  const Bottom({Key? key}) : super(key: key);
+  const Bottom({
+    Key? key,
+    required this.callGamblingInBottom,
+  }) : super(key: key);
+
+  final Function callGamblingInBottom;
 
   @override
   Widget build(BuildContext context) {
+
     return Container(
       height: MediaQuery.of(context).size.height * 0.2 - AppBar().preferredSize.height,
       width: MediaQuery.of(context).size.width,
@@ -19,10 +25,10 @@ class Bottom extends StatelessWidget {
         // )
       ),
       child: Row(
-        children: const [
-          Meso(),
-          Enhancement(),
-          Menu(),
+        children: [
+          const Meso(),
+          Enhancement(callGamblingInCenter: callGamblingInBottom),
+          const Menu(),
         ],
       ),
     );

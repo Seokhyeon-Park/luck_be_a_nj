@@ -2,7 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:animated_button/animated_button.dart';
 
 class Enhancement extends StatelessWidget {
-  const Enhancement({Key? key}) : super(key: key);
+  const Enhancement({
+    Key? key,
+    required this.callGamblingInCenter,
+  }) : super(key: key);
+  final Function callGamblingInCenter;
 
   @override
   Widget build(BuildContext context) {
@@ -22,7 +26,7 @@ class Enhancement extends StatelessWidget {
           ),
         ),
         onPressed: () {
-
+          callGamblingInCenter();
         },
       ),
     );

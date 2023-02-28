@@ -4,14 +4,16 @@ import 'dart:math';
 import 'dart:async';
 
 class RouletteWheel extends StatefulWidget {
+  final double height;
+  final double width;
+  final int rouletteCount;
+
   const RouletteWheel({
     Key? key,
     required this.height,
     required this.width,
+    required this.rouletteCount
   }) : super(key: key);
-
-  final double height;
-  final double width;
 
   @override
   State<RouletteWheel> createState() => _RouletteWheelState();
@@ -19,14 +21,26 @@ class RouletteWheel extends StatefulWidget {
 
 class _RouletteWheelState extends State<RouletteWheel> {
   late final ScrollController _controller;
+  late int _previousRouletteCount;
 
   @override
   void initState() {
     super.initState();
     _controller = ScrollController();
+    _previousRouletteCount = widget.rouletteCount;
     // Timer(const Duration(seconds: 1), () {
     //   _scrollToBottom();
     // });
+  }
+
+  @override
+  void didUpdateWidget(covariant RouletteWheel oldWidget) {
+    super.didUpdateWidget(oldWidget);
+
+    if (widget.rouletteCount != _previousRouletteCount) {
+      _scrollToBottom();
+      _previousRouletteCount = widget.rouletteCount;
+    }
   }
 
   void _scrollToBottom() {
