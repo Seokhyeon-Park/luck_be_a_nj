@@ -22,15 +22,16 @@ class RouletteWheel extends StatefulWidget {
 class _RouletteWheelState extends State<RouletteWheel> {
   late final ScrollController _controller;
   late int _previousRouletteCount;
+  final List<Widget> _symbols = [];
 
   @override
   void initState() {
     super.initState();
     _controller = ScrollController();
     _previousRouletteCount = widget.rouletteCount;
-    // Timer(const Duration(seconds: 1), () {
-    //   _scrollToBottom();
-    // });
+    for(int i = 0; i < 20; i++) {
+      _symbols.add(Symbol(symbolSize: widget.width / 5 - 1.2, num: i));
+    }
   }
 
   @override
@@ -38,20 +39,27 @@ class _RouletteWheelState extends State<RouletteWheel> {
     super.didUpdateWidget(oldWidget);
 
     if (widget.rouletteCount != _previousRouletteCount) {
+      int len = _symbols.length;
+
+      for(int i = 0; i < 20; i++) {
+        _symbols.add(Symbol(symbolSize: widget.width / 5 - 1.2, num: len + i,));
+      }
+
       _scrollToBottom();
       _previousRouletteCount = widget.rouletteCount;
+      print(_symbols.length);
     }
   }
 
   void _scrollToBottom() {
     final random = Random();
-    final randomDouble = random.nextDouble() * 0.6 * 1000;
+    final randomDouble = random.nextDouble() * 0.8 * 1000;
 
     if(_controller.hasClients) {
       Timer(Duration(milliseconds: randomDouble.toInt()), () {
         _controller.animateTo(
           _controller.position.maxScrollExtent,
-          duration: const Duration(milliseconds: 800),
+          duration: const Duration(milliseconds: 1000),
           curve: Curves.easeOut,
         );
       });
@@ -60,11 +68,9 @@ class _RouletteWheelState extends State<RouletteWheel> {
 
   @override
   Widget build(BuildContext context) {
-    double wheelWidth = widget.width / 5 - 1.2;
-
     return Container(
       height: widget.height,
-      width: wheelWidth,
+      width: widget.width / 5 - 1.2,
       decoration: BoxDecoration(
         border: Border.all(
           color: Colors.black,
@@ -80,35 +86,9 @@ class _RouletteWheelState extends State<RouletteWheel> {
           child: SingleChildScrollView(
             controller: _controller,
             scrollDirection: Axis.vertical,
-            physics: const NeverScrollableScrollPhysics(),
+            // physics: const NeverScrollableScrollPhysics(),
             child: Column(
-              children: [
-                Symbol(symbolSize: wheelWidth),
-                Symbol(symbolSize: wheelWidth),
-                Symbol(symbolSize: wheelWidth),
-                Symbol(symbolSize: wheelWidth),
-                Symbol(symbolSize: wheelWidth),
-                Symbol(symbolSize: wheelWidth),
-                Symbol(symbolSize: wheelWidth),
-                Symbol(symbolSize: wheelWidth),
-                Symbol(symbolSize: wheelWidth),
-                Symbol(symbolSize: wheelWidth),
-                Symbol(symbolSize: wheelWidth),
-                Symbol(symbolSize: wheelWidth),
-                Symbol(symbolSize: wheelWidth),
-                Symbol(symbolSize: wheelWidth),
-                Symbol(symbolSize: wheelWidth),
-                Symbol(symbolSize: wheelWidth),
-                Symbol(symbolSize: wheelWidth),
-                Symbol(symbolSize: wheelWidth),
-                Symbol(symbolSize: wheelWidth),
-                Symbol(symbolSize: wheelWidth),
-                Symbol(symbolSize: wheelWidth),
-                Symbol(symbolSize: wheelWidth),
-                Symbol(symbolSize: wheelWidth),
-                Symbol(symbolSize: wheelWidth),
-                Symbol(symbolSize: wheelWidth),
-              ],
+              children: _symbols,
             ),
           ),
         ),
