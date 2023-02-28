@@ -31,7 +31,7 @@ class _RouletteWheelState extends State<RouletteWheel> {
     _controller = ScrollController();
     _previousRouletteCount = widget.rouletteCount;
     for(int i = 0; i < 40; i++) {
-      _symbols.add(Symbol(symbolSize: widget.width / 5 - 1.2, num: i));
+      _symbols.add(Symbol(symbolSize: widget.width / 5 - 1.2));
     }
   }
 
