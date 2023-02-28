@@ -24,7 +24,9 @@ class _RouletteWheelState extends State<RouletteWheel> {
   void initState() {
     super.initState();
     _controller = ScrollController();
-    _scrollToBottom();
+    // Timer(const Duration(seconds: 1), () {
+    //   _scrollToBottom();
+    // });
   }
 
   void _scrollToBottom() {
