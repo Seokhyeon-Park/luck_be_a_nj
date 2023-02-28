@@ -23,13 +23,14 @@ class _RouletteWheelState extends State<RouletteWheel> {
   late final ScrollController _controller;
   late int _previousRouletteCount;
   final List<Widget> _symbols = [];
+  bool topDown = true;
 
   @override
   void initState() {
     super.initState();
     _controller = ScrollController();
     _previousRouletteCount = widget.rouletteCount;
-    for(int i = 0; i < 20; i++) {
+    for(int i = 0; i < 40; i++) {
       _symbols.add(Symbol(symbolSize: widget.width / 5 - 1.2, num: i));
     }
   }
@@ -39,15 +40,14 @@ class _RouletteWheelState extends State<RouletteWheel> {
     super.didUpdateWidget(oldWidget);
 
     if (widget.rouletteCount != _previousRouletteCount) {
-      int len = _symbols.length;
-
-      for(int i = 0; i < 20; i++) {
-        _symbols.add(Symbol(symbolSize: widget.width / 5 - 1.2, num: len + i,));
+      if(topDown) {
+        _scrollToBottom();
+        topDown = false;
+      } else {
+        _scrollToTop();
+        topDown = true;
       }
-
-      _scrollToBottom();
       _previousRouletteCount = widget.rouletteCount;
-      print(_symbols.length);
     }
   }
 
@@ -59,6 +59,21 @@ class _RouletteWheelState extends State<RouletteWheel> {
       Timer(Duration(milliseconds: randomDouble.toInt()), () {
         _controller.animateTo(
           _controller.position.maxScrollExtent,
+          duration: const Duration(milliseconds: 1000),
+          curve: Curves.easeOut,
+        );
+      });
+    }
+  }
+
+  void _scrollToTop() {
+    final random = Random();
+    final randomDouble = random.nextDouble() * 0.8 * 1000;
+
+    if(_controller.hasClients) {
+      Timer(Duration(milliseconds: randomDouble.toInt()), () {
+        _controller.animateTo(
+          _controller.position.minScrollExtent,
           duration: const Duration(milliseconds: 1000),
           curve: Curves.easeOut,
         );
